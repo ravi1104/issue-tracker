@@ -69,5 +69,4 @@ issue-tracker/
    ```bash
    git clone https://github.com/your-username/issue-tracker.git
 
-Walkthrough Video link
-  http://google.com
+[Walkthrough Video link](https://youtu.be/xztCJ-VFi9Y)
