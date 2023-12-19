@@ -1,0 +1,78 @@
+<div class="d-flex">
+    <a class="button" href="http://localhost:3000/create">Create Project</a>
+</div>
+<div class="">
+    <div class="d-flex flex-wrap m-3 p-3">
+        <% if(projects && projects.length> 0){ %>
+            <% projects.forEach((project)=> { %>
+                <div class="project-tile d-flex dir-col">
+                    <p><span class="left-equals">Project Name: </span><span class="right-equals">
+                            <%= project.name %>
+                        </span></p>
+                    <p><span class="left-equals">Description:</span> <span class="right-equals">
+                            <%= project.description %>
+                        </span></p>
+
+                    <!-- Display project issues -->
+                    <div>
+                        <% if(project.issues && project.issues.length> 0) { %>
+                            <div>
+                                <form action="/details/<%= project._id %>/search">
+                                    <p>Filter</p>
+                            
+                                    <!-- Labels -->
+                                    <div>
+                                        <p>Labels</p>
+                                        <% labels.forEach((label) => { %>
+                                            <label for="<%= label %>"><%= label %></label>
+                                            <input type="checkbox" name="label_<%= label %>">
+                                        <% }); %>
+                                    </div>
+                            
+                                    <!-- Authors -->
+                                    
+                                    <div>
+                                        <p>authors</p>
+                                        <% authors.forEach((author) => { %>
+                                            <label for="<%= author %>"><%= author %></label>
+                                            <input type="checkbox" name="author_<%= author %>">
+                                        <% }); %>
+                                    </div>
+                            
+                                    <!-- Search -->
+                                    <input type="text" name="projectId" value="<%=project._id%>" hidden>
+                                    <input class="s-input" type="text" name="title" placeholder="Search by title or description">
+                                    <button class="button-2" type="submit">Filter & Search</button>
+                                </form>
+                            </div>
+                            
+                            <p class="sub-heading">Issues:</p>
+                            <ul>
+                                <% project.issues.forEach((issue)=> { %>
+                                    <li>
+                                        Title: <%= issue.title %>,
+                                        <%issue.labels.forEach((label)=>{%>
+                                            Label: <%=label%>
+                                        <%})%>
+
+                                            Description: <%= issue.description %>,
+                                                Creator: <%= issue.author %>
+                                    </li>
+                                    <% }); %>
+                            </ul>
+                            <% } else { %>
+                                <p>No issues found for this project.</p>
+                                <% } %>
+                    </div>
+                    <!-- Link to create issues -->
+                    <div>
+                        <a class="button" href="/issue/<%= project._id %>">Create Issues</a>
+                    </div>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <p>No projects found.</p>
+                        <% } %>
+    </div>
+
+</div>

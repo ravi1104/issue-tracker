@@ -1,0 +1,73 @@
+<p class="heading">Create Issue For <%= projectId %></p>
+
+<div class="d-flex">
+  <form id="create-data" action="/issue/create/<%= projectId %>" method="POST">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required>
+
+    <label for="dropdown">Select an Option:</label>
+    <select class="button" id="dropdown" name="label" required>
+      <!-- Existing labels fetched from the server -->
+      <% if(project && project.length> 0) { %>
+        <% project.forEach((proj)=> { %>
+          <% if(proj.labels && proj.labels.length> 0) { %>
+            <% proj.labels.forEach((label)=> { %>
+              <option value="<%= label %>">
+                <%= label %>
+              </option>
+              <% }); %>
+                <% } else { %>
+                  <option value="">No labels found</option>
+                  <% } %>
+                    <% }); %>
+                      <% } else { %>
+                        <option value="">No projects found</option>
+                        <% } %>
+
+                          <!-- Allow user to add item -->
+                          <option value="addLabel">Add Label</option>
+    </select><br>
+    <label for="author">Author : </label>
+    <input id="author" type="text" name="author"><br>
+    <button class="button-2" type="submit">Create Issue</button>
+  </form>
+
+</div>
+<script>
+ // When the document is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the dropdown element
+  const dropdown = document.getElementById('dropdown');
+  
+  // Listen for changes in the dropdown
+  dropdown.addEventListener('change', function() {
+    // Get the selected value
+    const selectedValue = dropdown.value;
+
+    // If 'Add Label' is selected
+    if (selectedValue === 'addLabel') {
+      // Prompt the user for a new label
+      const newLabel = prompt('Enter a new label:');
+      
+      // If the user entered a value and it's not empty
+      if (newLabel && newLabel.trim() !== '') {
+        // Create a new option element
+        const newOption = document.createElement('option');
+        newOption.value = newLabel;
+        newOption.textContent = newLabel;
+
+        // Add the new option to the dropdown
+        dropdown.appendChild(newOption);
+
+        // Select the newly added label
+        dropdown.value = newLabel;
+      }
+    }
+  });
+});
+
+
+</script>

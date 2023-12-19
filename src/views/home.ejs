@@ -1,0 +1,29 @@
+<div class="d-flex">
+    <a class="button" href="http://localhost:3000/create">Create Project</a>
+</div>
+<div class="d-flex">
+    <div class="d-flex flex-wrap m-3 p-3">
+        <% if(projects && projects.length> 0){ %>
+            <% projects.forEach((project)=> { %>
+                <div class="project-tile d-flex dir-col">
+                    <div>
+                        <span class="left-equals">Project Name :</span>
+                        <span class="right-equals">
+                            <%= project.name %>
+                        </span>
+                    </div>
+                    <div>
+                        <span class="left-equals">Description:</span>
+                        <span class="right-equals"> <%= project.description %>
+                        </span>
+                    </div>
+                    <div>
+                        <a class="button" href="/details/<%=project._id%>">Details</a>
+                    </div>
+                </div>
+                <% }); %>
+                    <% } else { %>
+                        <p>No projects found.</p>
+                        <% } %>
+    </div>
+</div>
